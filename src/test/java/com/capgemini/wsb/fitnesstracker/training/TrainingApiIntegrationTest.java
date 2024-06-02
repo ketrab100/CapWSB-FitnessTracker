@@ -162,7 +162,6 @@ class TrainingApiIntegrationTest extends IntegrationTestBase {
         Training training1 = persistTraining(generateTrainingWithActivityType(user1, ActivityType.RUNNING));
         String requestBody = """
                 {
-                "id": 1,
                 "userId": "%s",
                 "startTime": "2022-04-01T10:00:00",
                 "endTime": "2022-04-01T11:00:00",
@@ -178,6 +177,7 @@ class TrainingApiIntegrationTest extends IntegrationTestBase {
                 .andExpect(jsonPath("$.user.firstName").value(user1.getFirstName()))
                 .andExpect(jsonPath("$.user.lastName").value(user1.getLastName()))
                 .andExpect(jsonPath("$.user.email").value(user1.getEmail()))
+                .andExpect(jsonPath("$.activityType").value(ActivityType.TENNIS.toString()))
                 .andExpect(jsonPath("$.distance").value(0.0))
                 .andExpect(jsonPath("$.averageSpeed").value(0.0));
     }
